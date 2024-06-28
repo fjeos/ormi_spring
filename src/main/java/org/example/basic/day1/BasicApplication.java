@@ -1,6 +1,5 @@
-package org.example.basic;
+package org.example.basic.day1;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

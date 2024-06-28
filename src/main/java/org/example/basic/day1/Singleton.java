@@ -1,4 +1,4 @@
-package org.example.basic;
+package org.example.basic.day1;
 
 public class Singleton {
     private static final Singleton instance = new Singleton();

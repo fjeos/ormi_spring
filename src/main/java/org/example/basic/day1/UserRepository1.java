@@ -1,4 +1,4 @@
-package org.example.basic;
+package org.example.basic.day1;
 import org.springframework.stereotype.Repository;
 
 @Repository
