@@ -10,6 +10,7 @@ gradlew
 gradlew.bat
 .idea
 settings.gradle
+gradle/
 
 ### STS ###
 .apt_generated
