@@ -1,4 +1,4 @@
-package org.example.basic;
+package org.example.basic.day2;
 
 public class UserView {
     public void printUserDetails(User user) {
