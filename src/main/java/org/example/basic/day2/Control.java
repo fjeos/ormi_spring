@@ -11,7 +11,7 @@ public class Control {
         view.printUserDetails(model);
     }
 
-    public void setUserName(String name){
+    public void setUserName(String name) {
         model.setName(name);
     }
 
