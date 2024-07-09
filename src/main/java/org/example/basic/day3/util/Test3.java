@@ -1,7 +1,7 @@
-package org.example.util;
+package org.example.basic.day3.util;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class Test1 {
+public class Test3 {
 }

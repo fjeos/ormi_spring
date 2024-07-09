@@ -1,4 +1,4 @@
-package org.example.basic;
+package org.example.basic.day3;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

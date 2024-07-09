@@ -1,25 +1,34 @@
 package org.example.basic;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.ServletException;
+import org.example.basic.day4.ValueTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import java.io.IOException;
 
-//@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.example.basic.day4")
 public class BasicApplication {
+
+    @Autowired
+    private ValueTest valueTest;
+
+    @Value("${server.port}")
+    private int port;
+
+    @Value("${spring.application.name}")
+    private String appName;
+
+    @PostConstruct
+    public void printConfig() {
+        System.out.println("포트번호: " + port);
+        System.out.println("애플리케이션 이름: " + appName);
+    }
     public static void main(String[] args) throws ServletException, IOException {
 
-        DispatcherServlet dispatcherServlet = new DispatcherServlet();
-        String url = "/hello";
-
-        MockHttpServletRequest request = new MockHttpServletRequest(url);
-        MockHttpServletResponse response = new MockHttpServletResponse();
-
-        dispatcherServlet.service(request, response);
-        System.out.println(response.getContent());
-        System.out.println("응답 내용" + response.getContent());
-        // SpringApplication.run(BasicApplication.class, args);
+        SpringApplication.run(BasicApplication.class, args);
     }
 }
