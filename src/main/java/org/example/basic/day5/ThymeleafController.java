@@ -1,0 +1,41 @@
+package org.example.basic.day5;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class ThymeleafController {
+
+    @GetMapping("/index")
+    public String index(Model model) {
+        User max = new User("max", "max@gmail.com", false, "Java", false);
+        int[] iterData = {1, 2, 3, 4, 5};
+
+        model.addAttribute("user", max);
+        model.addAttribute("iterData", iterData);
+
+        return "index";
+    }
+
+    @GetMapping("/index/2")
+    public String index2(Model model){
+        return "index2";
+    }
+
+    @GetMapping("/index/3")
+    public String index3(Model model){
+        return "index3";
+    }
+
+    @PostMapping("/users")
+    public String users(@ModelAttribute User user){
+        System.out.println("유저 이름 = " + user.getUsername());
+        System.out.println("유저 이메일 = " + user.getEmail());
+
+        return "index2";
+    }
+}

@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>스프링부트 타임리프 홈페이지 테스트</h1>
-<p th:text="${name}">메시지가 표시됩니다.</p>
-<p th:text="${message}">메시지가 표시됩니다.</p>
+<div th:object="${user}">
+    <p>이름 : <span th:text="*{username}"></span></p>
+    <p>이메일 : <span th:text="*{email}"></span></p>
+    <p th:if="${user.admin}">이 사람은 관리자 권한이 있습니다.</p>
+    <p th:unless="${user.admin}">이 사람은 관리자 권한이 없습니다.</p>
+    <p th:if="${user.person}">이 사람입니다.</p>
+    <p th:unless="${user.person}">이 사람이 아닙니다.</p>
 
-<h2 th:text="${subtitle}">Quiz 제목</h2>
-<p th:style="${style}" th:text="${content}" th:border="${border}">Quiz 내용</p>
-<button th:style="${btn_color}">버튼이 들어갑니다</button>
+</div>
+<ul th:each="item :${iterData}">
+    <li th:text="${item}"></li>
+</ul>
+<a th:href="@{/index/2}">인덱스 2 페이지로 가기</a>
+<br>
+<a th:href="@{/index/3}">인덱스 3 페이지로 가기</a>
+
+<form th:action="@{/users}" method="post">
+    <input type="text" name="username">
+    <input type="email" name="email">
+    <button type="submit">저장</button>
+</form>
 </body>
 </html>
