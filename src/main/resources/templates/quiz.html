@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:object="${user}">
+    <p>이름 : <span th:text="*{username}"></span></p>
+    <p>이메일 : <span th:text="*{email}"></span></p>
+    <a th:if="${user.isAdmin}" th:href="@{/quiz/admin}">관리자 메뉴</a>
+    <a th:unless="${user.isAdmin}" th:href="@{/quiz/user}">일반 사용자 메뉴</a>
+</div>
+</body>
+</html>

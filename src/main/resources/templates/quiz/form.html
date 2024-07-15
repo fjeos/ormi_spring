@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>회원가입</h1>
+<form th:action="@{/quiz}" method="post" th:object="${user}">
+    <div>
+        <label>이름
+        <input type="text" th:field="${user.username}"></label>
+    </div>
+    <div>
+        <label>이메일
+        <input type="email" th:field="${user.email}"></label>
+    </div>
+    <div>
+        <label>비밀번호
+            <input type="password" th:field="${user.password}"></label>
+    </div>
+    <button type="submit">저장</button>
+</form>
+</body>
+</html>
