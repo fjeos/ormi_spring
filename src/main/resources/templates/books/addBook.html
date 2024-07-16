@@ -9,15 +9,15 @@
 <form th:action="@{/books}" method="post" th:object="${book}">
     <div>
         <label>책 제목
-            <input type="text" th:field="${book.title}"></label>
+            <input type="text" id="title" th:field="${book.title}"></label>
     </div>
     <div>
         <label>저자
-            <input type="text" th:field="${book.author}"></label>
+            <input type="text" id="author" th:field="${book.author}"></label>
     </div>
     <div>
         <label>출판 년도
-            <input type="text" th:field="${book.publicationYear}"></label>
+            <input type="text" id="publicationYear" th:field="${book.publicationYear}"></label>
     </div>
     <button type="submit">저장</button>
 </form>

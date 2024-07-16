@@ -1,4 +1,4 @@
-package org.example.basic.quiz0715;
+package org.example.basic.implQuiz;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

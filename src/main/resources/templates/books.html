@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 <table>
@@ -12,6 +13,7 @@
         <th>제목</th>
         <th>저자</th>
         <th>출판 년도</th>
+        <th>작업</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +22,10 @@
         <td th:text="${book.title}"></td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.publicationYear}"></td>
+        <td class="action-buttons">
+            <a th:href="@{/books/editBook/{id}(id=${book.id})}" class="edit-btn">수정</a>
+            <a th:href="@{/books/deleteBook/{id}(id=${book.id})}" class="delete-form" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</a>
+        </td>
     </tr>
     </tbody>
 </table>

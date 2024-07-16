@@ -1,4 +1,4 @@
-package org.example.basic.quiz0715;
+package org.example.basic.implQuiz;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
-    private long id;
-    private String title;
-    private String author;
-    private int publicationYear;
+public class User {
+    private String username;
+    private String email;
+    private boolean isAdmin;
+    private String password;
 }
