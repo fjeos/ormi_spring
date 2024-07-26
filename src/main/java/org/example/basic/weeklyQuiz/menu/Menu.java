@@ -2,11 +2,11 @@ package org.example.basic.weeklyQuiz.menu;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.basic.weeklyQuiz.order.Orders;
 
 @Entity
 @Table
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

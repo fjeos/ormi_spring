@@ -3,7 +3,6 @@ package org.example.basic.weeklyQuiz.menu;
 import lombok.*;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
