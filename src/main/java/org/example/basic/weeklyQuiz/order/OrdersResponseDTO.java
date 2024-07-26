@@ -1,30 +1,33 @@
 package org.example.basic.weeklyQuiz.order;
 
 import lombok.*;
-import org.example.basic.weeklyQuiz.menu.Menu;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrdersDTO {
+public class OrdersResponseDTO {
 
-    private Long menuId;
+    private Long storeId;
+    private LocalDateTime createdAt;
+    private List<OrderItemDTO> orderItemDTOS;
     private String state;
     private int totalPrice;
 
-    public static OrdersDTO toDTO(Orders orders) {
-        return OrdersDTO.builder()
-                .menuId(orders.getMenu().getMenuId())
+    public static OrdersResponseDTO toDTO(Orders orders) {
+        return OrdersResponseDTO.builder()
+                .storeId(orders.getStore().getStoreId())
                 .state(orders.getState())
                 .totalPrice(orders.getTotalPrice())
                 .build();
     }
 
-    public static Orders toOrders(OrdersDTO ordersDTO, Menu menu) {
+    public static Orders toOrders(OrdersResponseDTO ordersDTO) {
         return Orders.builder()
-                .menu(menu)
                 .state(ordersDTO.getState())
                 .totalPrice(ordersDTO.getTotalPrice())
                 .build();
