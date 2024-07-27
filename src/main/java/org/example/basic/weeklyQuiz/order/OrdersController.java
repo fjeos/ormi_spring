@@ -33,4 +33,10 @@ public class OrdersController {
                              @RequestParam("type") String type) {
         return ordersService.completeOrder(orderId, type);
     }
+
+    // 각 매장별 특정기간 동안의 매출 조회
+    @GetMapping("/sales")
+    public ResponseEntity<SalesResponseDTO> getSalesByStores(@RequestBody SalesRequestDTO salesRequestDTO) {
+        return ResponseEntity.ok(ordersService.getSalesByStores(salesRequestDTO));
+    }
 }

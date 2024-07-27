@@ -1,7 +1,6 @@
 package org.example.basic.weeklyQuiz.store;
 
-import org.example.basic.weeklyQuiz.customer.CustomerDTO;
-import org.example.basic.weeklyQuiz.customer.CustomerService;
+import org.example.basic.weeklyQuiz.order.SalesRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,4 +41,6 @@ public class StoreController {
     public ResponseEntity<Void> deleteStore(@PathVariable("id") Long id) {
         return storeService.deleteStore(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
+
+
 }

@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -75,5 +76,12 @@ public class OrdersService {
             order.changeState("취소");
         }
         return -1;
+    }
+
+    public SalesResponseDTO getSalesByStores(SalesRequestDTO salesRequestDTO) {
+
+        /*DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate date = LocalDate.parse(salesRequestDTO.getBetween(), format);*/
+        return ordersRepository.calculateSales(salesRequestDTO.getBetween());
     }
 }

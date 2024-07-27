@@ -47,4 +47,10 @@ public class MenuService {
                 .map(menu -> {menuRepository.delete(menu); return true;})
                 .orElse(false);
     }
+
+    public List<MenuDTO> getMenusByCategory(String category) {
+        List<Menu> menus = menuRepository.findByCategory(category);
+
+        return menus.stream().map(MenuDTO::toDTO).collect(Collectors.toList());
+    }
 }

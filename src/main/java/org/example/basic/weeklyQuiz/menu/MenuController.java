@@ -47,5 +47,10 @@ public class MenuController {
         return menuService.deleteMenu(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
+    // 특정 카테고리 메뉴 조회
+    @GetMapping
+    public ResponseEntity<List<MenuDTO>> getMenusByCategory(@RequestParam("category") String category) {
+        return ResponseEntity.ok(menuService.getMenusByCategory(category));
+    }
 
 }
