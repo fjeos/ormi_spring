@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 public class SalesResponseDTO {
 
-    private Long storeId;
     private int totalPrice;
+    private Long storeId;
 
 }

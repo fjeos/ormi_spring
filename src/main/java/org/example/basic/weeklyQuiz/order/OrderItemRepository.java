@@ -7,12 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
-    @Query("select menu from OrderItem where orders.ordersId = :ordersId")
-    List<Menu> findMenuByOrdersId(@Param("ordersId") Long ordersId);
-
     List<OrderItem> findByOrders(@Param("orders") Orders orders);
+
+    @Query("select i.menu.menuName as menuName, i.menu.category as category, COUNT(i) as cnt " +
+            "from OrderItem i " +
+            "group by i.menu.menuId " +
+            "order by cnt desc limit 3")
+    List<TopMenuInterface> findTop3Menus();
+
 }

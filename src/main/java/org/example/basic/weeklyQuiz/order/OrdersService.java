@@ -1,6 +1,7 @@
 package org.example.basic.weeklyQuiz.order;
 
 import org.example.basic.weeklyQuiz.menu.Menu;
+import org.example.basic.weeklyQuiz.menu.MenuDTO;
 import org.example.basic.weeklyQuiz.menu.MenuRepository;
 import org.example.basic.weeklyQuiz.store.Store;
 import org.example.basic.weeklyQuiz.store.StoreRepository;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -78,10 +80,17 @@ public class OrdersService {
         return -1;
     }
 
-    public SalesResponseDTO getSalesByStores(SalesRequestDTO salesRequestDTO) {
+    public List<SalesResponseInterface> getSalesByStores(SalesRequestDTO salesRequestDTO) {
 
-        /*DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate date = LocalDate.parse(salesRequestDTO.getBetween(), format);*/
-        return ordersRepository.calculateSales(salesRequestDTO.getBetween());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+        LocalDateTime start = LocalDateTime.parse(salesRequestDTO.getStart(), format);
+        LocalDateTime end = LocalDateTime.parse(salesRequestDTO.getEnd(), format);
+        return ordersRepository.calculateSales(start, end);
+
+    }
+
+    public List<TopMenuInterface> getTopSalesMenus() {
+        return orderItemRepository.findTop3Menus();
+
     }
 }

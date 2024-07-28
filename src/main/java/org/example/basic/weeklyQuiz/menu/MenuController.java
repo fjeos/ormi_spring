@@ -48,7 +48,7 @@ public class MenuController {
     }
 
     // 특정 카테고리 메뉴 조회
-    @GetMapping
+    @GetMapping("/category")
     public ResponseEntity<List<MenuDTO>> getMenusByCategory(@RequestParam("category") String category) {
         return ResponseEntity.ok(menuService.getMenusByCategory(category));
     }

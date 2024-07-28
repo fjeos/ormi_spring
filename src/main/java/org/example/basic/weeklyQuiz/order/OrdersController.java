@@ -1,8 +1,11 @@
 package org.example.basic.weeklyQuiz.order;
 
+import org.example.basic.weeklyQuiz.menu.MenuDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -36,7 +39,13 @@ public class OrdersController {
 
     // 각 매장별 특정기간 동안의 매출 조회
     @GetMapping("/sales")
-    public ResponseEntity<SalesResponseDTO> getSalesByStores(@RequestBody SalesRequestDTO salesRequestDTO) {
+    public ResponseEntity<List<SalesResponseInterface>> getSalesByStores(@RequestBody SalesRequestDTO salesRequestDTO) {
         return ResponseEntity.ok(ordersService.getSalesByStores(salesRequestDTO));
+    }
+
+    // 가장 인기있는 메뉴 조회
+    @GetMapping("/top-sales")
+    public ResponseEntity<List<TopMenuInterface>> getTopSalesMenus() {
+        return ResponseEntity.ok(ordersService.getTopSalesMenus());
     }
 }

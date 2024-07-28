@@ -7,15 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long>{
 
-    @Query("select o from Orders o where o.store = :store")
-    List<Orders> findByStoreId(@Param("store") Store store);
+    @Query("select sum(o.totalPrice) as totalPrice, o.store.storeId as storeId from Orders o where o.state = '완료' and o.createdAt between :start and :end group by o.store")
+    List<SalesResponseInterface> calculateSales(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
-    @Query("select sum(o.price), o.store from orders o where o.createdAt between '2024-05-15' and :date group by o.store")
-    List<Store> calculateSales(@Param("date") String date);
 }

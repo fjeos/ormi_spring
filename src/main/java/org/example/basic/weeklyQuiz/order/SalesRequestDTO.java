@@ -8,5 +8,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class SalesRequestDTO {
-    private String between;
+    private String start;
+    private String end;
 }
