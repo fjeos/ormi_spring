@@ -17,12 +17,6 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
-    /*// storeId의 주문 목록 조회
-    @GetMapping("/{storeId}")
-    public ResponseEntity<OrdersResponseDTO> getOrdersList(@PathVariable("storeId") Long storeId) {
-        return ResponseEntity.ok(ordersService.getOrdersList(storeId));
-    }*/
-
     // 주문 생성
     @PostMapping("/{storeId}")
     public void makeOrder(@PathVariable("storeId") Long storeId,
