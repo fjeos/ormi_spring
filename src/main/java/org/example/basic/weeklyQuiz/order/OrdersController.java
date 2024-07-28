@@ -24,6 +24,13 @@ public class OrdersController {
         ordersService.makeOrder(storeId, orderItemDTOS);
     }
 
+    // 주문 수정
+    @PutMapping("/{orderId}")
+    public ResponseEntity<List<OrderItemDTO>> updateOrder(@PathVariable("orderId") Long orderId,
+                                                          @RequestBody OrderItemDTO[] orderItemDTOS) {
+        return ResponseEntity.ok(ordersService.updateOrder(orderId, orderItemDTOS));
+    }
+
     // 주문 완료, 취소
     @PatchMapping("/{orderId}")
     public int completeOrder(@PathVariable("orderId") Long orderId,

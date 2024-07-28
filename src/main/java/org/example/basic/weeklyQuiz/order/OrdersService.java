@@ -1,7 +1,6 @@
 package org.example.basic.weeklyQuiz.order;
 
 import org.example.basic.weeklyQuiz.menu.Menu;
-import org.example.basic.weeklyQuiz.menu.MenuDTO;
 import org.example.basic.weeklyQuiz.menu.MenuRepository;
 import org.example.basic.weeklyQuiz.store.Store;
 import org.example.basic.weeklyQuiz.store.StoreRepository;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,6 +32,29 @@ public class OrdersService {
     }
 
     /**
+     * MenuRepository에서 Menu를 찾아 반환하는 메서드
+     * @param item OrderItemDTO에서 menuId를 꺼냄
+     * @return 찾은 Menu 갹채, 못 찾으면 Exception 발생
+     */
+    private Menu findMenu(OrderItemDTO item) {
+        Menu findMenu = menuRepository.findById(item.getMenuId())
+                .orElseThrow(() -> new IllegalArgumentException("메뉴를 찾을 수 없습니다."));
+        return findMenu;
+    }
+
+    /**
+     * OrdersRepository에서 Orders를 찾는 메서드
+     * @param orderId 찾으려는 주문의 Id
+     * @return 찾은 Orders 객체, 못 찾으면 Exception 발생
+     */
+    private Orders getOrders(Long orderId) {
+        Orders findOrder = ordersRepository.findById(orderId).
+                orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다."));
+        return findOrder;
+    }
+
+
+    /**
      * 주문을 생성하는 메서드
      * storeId로 가게를 찾고, order을 생성한 후 orderItemDTO에 담겨있는 메뉴들을 DB에 저장
      * @param storeId 주문이 들어온 가게 id
@@ -51,8 +72,7 @@ public class OrdersService {
         ordersRepository.save(order);
 
         for (OrderItemDTO item : orderItemDTOS) {
-            Menu findMenu = menuRepository.findById(item.getMenuId())
-                    .orElseThrow(() -> new IllegalArgumentException("메뉴를 찾을 수 없습니다."));
+            Menu findMenu = findMenu(item);
             orderItemRepository.save(OrderItem.builder()
                     .orders(order)
                     .menu(findMenu)
@@ -62,6 +82,27 @@ public class OrdersService {
 
     }
 
+    /**
+     * 주문을 수정하는 메서드
+     * @param orderId 수정하려는 주문의 Id
+     * @param orderItemDTOS 수정하려는 주문 정보가 담긴 DTO
+     * @return 수정이 완료된 주문 정보
+     */
+    public List<OrderItemDTO> updateOrder(Long orderId, OrderItemDTO[] orderItemDTOS) {
+        List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
+        Orders findOrder = getOrders(orderId);
+        List<OrderItem> orderItemList = orderItemRepository.findByOrders(findOrder);
+
+        for (int i = 0; i < orderItemList.size(); i++) {
+            Menu menu = findMenu(orderItemDTOS[i]);
+            orderItemList.get(i).updateOrderItem(findOrder, menu, orderItemDTOS[i]);
+            orderItemDTOList.add(OrderItemDTO.builder()
+                    .menuId(orderItemDTOS[i].getMenuId())
+                    .amount(orderItemDTOS[i].getAmount())
+                    .build());
+        }
+        return orderItemDTOList;
+    }
 
     /**
      * 주문을 완료하는 메서드
@@ -73,8 +114,7 @@ public class OrdersService {
     public int completeOrder(Long orderId, String type) {
         // 주문을 완료함
         if (type.equals("완료")) {
-            Orders order = ordersRepository.findById(orderId)
-                    .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다."));
+            Orders order = getOrders(orderId);
             order.changeState("완료");
 
             // 주문에 연결되어있는 orderItem들을 가져와 총액을 계산
@@ -86,9 +126,9 @@ public class OrdersService {
             order.calcTotal(totalPrice);
             return totalPrice;
         } else if (type.equals("취소")) {     // 주문을 취소함
-            Orders order = ordersRepository.findById(orderId)
-                    .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다."));
+            Orders order = getOrders(orderId);
             order.changeState("취소");
+            order.calcTotal(-1);
         }
         return -1;
     }

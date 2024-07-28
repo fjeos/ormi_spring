@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.basic.weeklyQuiz.menu.Menu;
+import org.hibernate.query.Order;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +30,10 @@ public class OrderItem {
     private Menu menu;
 
     private int amount;
+
+    public void updateOrderItem(Orders order, Menu menu, OrderItemDTO orderItemDTO) {
+        this.orders = order;
+        this.menu = menu;
+        this.amount = orderItemDTO.getAmount();
+    }
 }
